@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On Going / Real Time - AI LifeManager Task & Finance Suite</title>
+  <link rel="stylesheet" href="style.css?v=45.0.0">
+  <link rel="stylesheet" href="medicare.css?v=45.0.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="light-mode">
+  <!-- Sidebar Mobile Overlay -->
+  <div id="sidebarOverlay" class="sidebar-overlay hidden" onclick="toggleSidebar(false)"></div>
+
+  <!-- App Layout -->
+  <div id="appLayout" class="app-layout">
+    <!-- Sidebar Navigation Drawer -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-small"><i class="fa-solid fa-brain"></i></div>
+        <div class="logo-text">
+          <h2>Mine</h2>
+          <span class="version-tag">Personal Life Manager</span>
+        </div>
+        <button class="btn-close-sidebar" onclick="toggleSidebar(false)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#" class="nav-item" onclick="toggleSidebar(false); openTaskAppModal('Bill');">
+          <i class="fa-solid fa-calendar-check color-blue"></i> Schedule / Reminders
+        </a>
+        <a href="#" class="nav-item" onclick="toggleSidebar(false); openSectionModal('money');">
+          <i class="fa-solid fa-wallet color-green"></i> Money Tracker & Smart Finance
+        </a>
+        <a href="#" class="nav-item" onclick="toggleSidebar(false); openSectionModal('personal');">
+          <i class="fa-solid fa-user-shield color-purple"></i> Personal Vault
+        </a>
+        <a href="#" class="nav-item" onclick="toggleSidebar(false); openMediCareAppModal();">
+          <i class="fa-solid fa-heart-pulse color-red"></i> MediCare
+        </a>
+      </nav>
+
+      <div class="user-profile-badge">
+        <div class="avatar" id="userAvatar">A</div>
+        <div class="user-info">
+          <span class="user-name" id="userName">Mine</span>
+          <span class="user-status"><i class="fa-solid fa-circle status-online"></i> <span>Live Sync Active</span></span>
+        </div>
+        <button class="btn-icon" onclick="toggleTheme()" title="Toggle Light/Dark Theme">
+          <i class="fa-solid fa-sun" id="themeIcon"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Bar matching sketch header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="hamburger-btn" onclick="toggleSidebar(true)" title="Toggle Menu Drawer">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="header-title-container">
+            <h1 class="page-title" id="liveClock">
+              <span class="pulse-indicator"></span> Tuesday, 21 July 2026 • 11:13:25 PM
+            </h1>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-icon-circle" onclick="toggleTheme()" title="Toggle Theme">
+            <i class="fa-solid fa-sun" id="themeToggleBtnIcon"></i>
+          </button>
+          <button class="btn-icon-circle" onclick="triggerSearchModal()" title="Global Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <button class="btn-icon-circle notification-badge" onclick="triggerNotificationAlert()" title="Alerts">
+            <i class="fa-regular fa-bell"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Dashboard Content (Sketch Implementation) -->
+      <div class="dashboard-scroll-area">
+        <div class="sketch-section-container">
+
+          <!-- Card 1: Schedule / Reminders (Opens Full Material Task App) -->
+          <div class="sketch-card card-schedule" onclick="openTaskAppModal('Bill')">
+            <div class="card-bg-image" style="background-image: url('assets/optimized/schedule_reminders.jpg');"></div>
+            <div class="card-glass-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-icon-badge icon-blue">
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <div class="card-title-group">
+                  <h2>Schedule / Reminders</h2>
+                  <p class="card-subtitle" id="taskAppCardSubtitle">4 Active Lists • Tasks & Reminders</p>
+                </div>
+              </div>
+              <div class="card-preview-items" id="taskAppCardPreview">
+                <span class="preview-tag red-tag"><i class="fa-solid fa-file-invoice-dollar"></i> Bill (2 tasks)</span>
+                <span class="preview-tag blue-tag"><i class="fa-solid fa-user-gear"></i> Personal (3 tasks)</span>
+                <span class="preview-tag purple-tag"><i class="fa-solid fa-briefcase"></i> Work (1 task)</span>
+              </div>
+              <div style="margin-top: 10px; display: flex; gap: 8px;">
+                <button class="btn btn-primary" style="padding: 6px 14px; font-size: 12px;" onclick="event.stopPropagation(); openTaskAppModal('Bill');">
+                  <i class="fa-solid fa-arrow-right-to-bracket"></i> Launch Task App
+                </button>
+              </div>
+            </div>
+            <div class="card-action-icon">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
+
+          <!-- Card 2: Money Tracker & Smart Finance -->
+          <div class="sketch-card card-money" onclick="openSectionModal('money')">
+            <div class="card-bg-image" style="background-image: url('assets/optimized/money_tracker.jpg');"></div>
+            <div class="card-glass-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-icon-badge icon-green">
+                  <i class="fa-solid fa-wallet"></i>
+                </div>
+                <div class="card-title-group">
+                  <h2>Money Tracker & Smart Finance</h2>
+                  <p class="card-subtitle" id="financeCardSubtitle">Net Balance: $8,780.00 • 4 Accounts Active</p>
+                </div>
+              </div>
+              <div class="card-preview-items" id="financeCardPreview">
+                <span class="preview-tag green-tag"><i class="fa-solid fa-arrow-trend-up"></i> +$1,200 Salary</span>
+                <span class="preview-tag red-tag"><i class="fa-solid fa-cart-shopping"></i> -$45.00 Hosting</span>
+                <span class="preview-tag purple-tag"><i class="fa-solid fa-chart-pie"></i> Budget 72% Spent</span>
+              </div>
+              <div style="margin-top: 10px; display: flex; gap: 8px;">
+                <button class="btn" style="background:var(--secondary); color:#fff; padding: 6px 14px; font-size: 12px;" onclick="event.stopPropagation(); openSectionModal('money');">
+                  <i class="fa-solid fa-chart-line"></i> Open Finance Suite
+                </button>
+                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 12px;" onclick="event.stopPropagation(); openFinanceTxModal('expense');">
+                  <i class="fa-solid fa-plus"></i> Add Expense
+                </button>
+              </div>
+            </div>
+            <div class="card-action-icon">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
+
+          <!-- Card 3: Personal Vault -->
+          <div class="sketch-card card-personal" onclick="openSectionModal('personal')">
+            <div class="card-bg-image" style="background-image: url('assets/optimized/personal_info.jpg');"></div>
+            <div class="card-glass-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-icon-badge icon-purple">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div class="card-title-group">
+                  <h2>Personal Vault</h2>
+                  <p class="card-subtitle">Encrypted Vault • Documents, Passwords & Cards</p>
+                </div>
+              </div>
+              <div class="card-preview-items">
+                <span class="preview-tag purple-tag"><i class="fa-solid fa-id-card"></i> Passport (45d left)</span>
+                <span class="preview-tag cyan-tag"><i class="fa-solid fa-fingerprint"></i> Biometric Verified</span>
+              </div>
+            </div>
+            <div class="card-action-icon">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
+
+          <!-- Card 4: MediCare -->
+          <div class="sketch-card card-health" id="cardHealthModule" onclick="openMediCareAppModal()">
+            <div class="card-bg-image" style="background-image: url('assets/optimized/ai_health.jpg');"></div>
+            <div class="card-glass-overlay"></div>
+            <div class="card-content">
+              <div class="card-header">
+                <div class="card-icon-badge" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color:#fff;">
+                  <i class="fa-solid fa-heart-pulse"></i>
+                </div>
+                <div class="card-title-group">
+                  <h2 id="healthCardTitle">MediCare</h2>
+                  <p class="card-subtitle" id="healthCardSubtitle">4 Active Prescriptions • Next: Amoxicillin (04:00 PM) • 94% Adherence</p>
+                </div>
+              </div>
+              <div class="card-preview-items" id="healthCardPreview">
+                <span class="preview-tag red-tag"><i class="fa-solid fa-pills"></i> 4 Active Meds</span>
+                <span class="preview-tag teal-tag"><i class="fa-solid fa-clock"></i> Next: 04:00 PM</span>
+                <span class="preview-tag green-tag"><i class="fa-solid fa-shield-halved"></i> Safety Checked</span>
+                <span class="preview-tag purple-tag"><i class="fa-solid fa-notes-medical"></i> Health Records</span>
+              </div>
+              <div class="card-medicare-btn-row" style="margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn" style="background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); color:#fff; padding: 6px 14px; font-size: 12px; font-weight:700;" onclick="event.stopPropagation(); openMediCareAppModal();">
+                  <i class="fa-solid fa-heart-pulse"></i> Open MediCare
+                </button>
+                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 12px;" onclick="event.stopPropagation(); openMediCareAppModal(); setTimeout(() => openAddMedicineModal(), 150);">
+                  <i class="fa-solid fa-plus"></i> Add Medicine
+                </button>
+                <button class="btn btn-outline" style="padding: 6px 14px; font-size: 12px;" onclick="event.stopPropagation(); openMediCareAppModal(); setTimeout(() => switchMediCareTab('calendar'), 150);">
+                  <i class="fa-solid fa-calendar-check"></i> Calendar
+                </button>
+              </div>
+            </div>
+            <div class="card-action-icon">
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  <!-- DEDICATED FULL MEDICARE AI HEALTH & MEDICINE MANAGEMENT APP WINDOW -->
+  <div id="medicareAppModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'medicareAppModal')">
+    <div class="modal-card medicare-app-window" onclick="event.stopPropagation()">
+      <div id="medicareAppWindowContent" style="display:flex; flex-direction:column; height:100%; width:100%; overflow:hidden;"></div>
+    </div>
+  </div>
+
+  <!-- FULL MATERIAL DESIGN TASK APP MODAL / SCREEN -->
+  <div id="taskAppModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'taskAppModal')">
+    <div class="modal-card material-task-app-window" onclick="event.stopPropagation()">
+      <div class="task-app-header" id="taskAppHeader">
+        <button class="task-header-icon-btn" onclick="openTaskSidebarDrawer()" title="All Lists Drawer">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="task-header-title-container">
+          <div class="list-accent-dot" id="currentListAccentDot"></div>
+          <h2 id="currentListTitle">Bill</h2>
+          <span class="task-count-badge" id="currentListTaskCount">2 tasks</span>
+        </div>
+        <div class="task-header-right-actions">
+          <button class="task-header-icon-btn" onclick="openTaskEditorModal()" title="Create New Task">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="task-header-icon-btn" onclick="openSubListOverflowMenu()" title="Sub-list options">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <button class="task-header-icon-btn" onclick="closeModal('taskAppModal')" title="Close Task App">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="task-sublists-tab-bar" id="subListTabsContainer"></div>
+      <div class="task-list-view-container" id="taskListViewContainer"></div>
+
+      <div class="quick-add-pinned-bar">
+        <i class="fa-solid fa-square-plus quick-add-icon" id="quickAddListIcon"></i>
+        <input type="text" id="quickAddInput" placeholder="Quick add task..." onkeypress="if(event.key==='Enter') handleQuickAddSubmit()">
+        <button class="btn-send-quick-add" onclick="handleQuickAddSubmit()" title="Add Task">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+
+      <button class="task-fab-btn" onclick="openTaskEditorModal()" title="Add New Task">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- TASK APP SIDEBAR DRAWER -->
+  <div id="taskDrawerModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'taskDrawerModal')">
+    <div class="modal-card task-drawer-sheet" onclick="event.stopPropagation()">
+      <div class="task-drawer-header">
+        <div class="drawer-brand">
+          <i class="fa-solid fa-list-check color-primary"></i>
+          <h3>Task Management Engine</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('taskDrawerModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="task-drawer-body">
+        <div class="drawer-section-label">MY TASK LISTS</div>
+        <div id="taskListsDrawerContainer" class="drawer-lists-group"></div>
+        <div class="drawer-section-label">ACTIONS & FILTERS</div>
+        <div class="drawer-nav-group">
+          <button class="drawer-nav-btn" onclick="promptCreateNewList()"><i class="fa-solid fa-folder-plus color-blue"></i> New List</button>
+          <button class="drawer-nav-btn" onclick="promptCreateFilteredList()"><i class="fa-solid fa-filter color-purple"></i> New Filtered List</button>
+          <button class="drawer-nav-btn" onclick="promptCreateSharedList()"><i class="fa-solid fa-user-group color-green"></i> New Shared List</button>
+          <button class="drawer-nav-btn" onclick="promptEditCurrentList()"><i class="fa-solid fa-pen-to-square color-orange"></i> Edit List</button>
+          <button class="drawer-nav-btn" onclick="openTagsViewModal()"><i class="fa-solid fa-tags color-teal"></i> Tags</button>
+          <button class="drawer-nav-btn" onclick="openDeletedItemsModal()"><i class="fa-solid fa-trash-can color-coral"></i> Deleted Items</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TASK DETAIL EDITOR SCREEN -->
+  <div id="taskEditorModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'taskEditorModal')">
+    <div class="modal-card task-editor-sheet" onclick="event.stopPropagation()">
+      <div class="editor-header-bar" id="editorHeaderBar">
+        <button class="modal-close-btn light-btn" onclick="closeModal('taskEditorModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <span class="editor-header-title" id="editorHeaderTitleText">Task Details</span>
+        <button class="btn-text-save" onclick="saveTaskFromEditor()">Save</button>
+      </div>
+
+      <div class="editor-scroll-body">
+        <form onsubmit="event.preventDefault(); saveTaskFromEditor();">
+          <div class="editor-field-group">
+            <input type="text" id="taskEditorTitle" class="editor-title-input" placeholder="What needs to be done?" required>
+          </div>
+          <div class="editor-field-row">
+            <i class="fa-solid fa-list color-muted"></i>
+            <label>List:</label>
+            <select id="taskEditorListSelect" class="editor-select" onchange="updateEditorHeaderAccent()"></select>
+          </div>
+          <div class="editor-field-group">
+            <label><i class="fa-solid fa-align-left color-muted"></i> Notes</label>
+            <textarea id="taskEditorNotes" class="editor-textarea" placeholder="Tap to add notes, details, URLs..."></textarea>
+          </div>
+          <div class="editor-field-group">
+            <label><i class="fa-solid fa-paperclip color-muted"></i> Attachments</label>
+            <div class="attachment-actions-row">
+              <button type="button" class="btn-attach" onclick="triggerGalleryPicker()"><i class="fa-solid fa-image"></i> Gallery</button>
+              <button type="button" class="btn-attach" onclick="triggerCameraCapture()"><i class="fa-solid fa-camera"></i> Camera Photo</button>
+            </div>
+            <div id="attachmentsPreviewContainer" class="attachments-preview-row"></div>
+          </div>
+          <div class="editor-field-group">
+            <div class="subtasks-header">
+              <label><i class="fa-solid fa-list-check color-muted"></i> Sub Tasks</label>
+              <button type="button" class="btn-sm-add" onclick="addNewSubtaskInput()"><i class="fa-solid fa-plus"></i> Add Sub Task</button>
+            </div>
+            <div id="subtasksEditorContainer" class="subtasks-editor-list"></div>
+          </div>
+          <div class="editor-field-row">
+            <i class="fa-solid fa-tag color-muted"></i>
+            <label>Tags:</label>
+            <div id="editorTagsContainer" class="tags-row-selectable"></div>
+            <button type="button" class="btn-sm-tag" onclick="promptAddNewTag()"><i class="fa-solid fa-plus"></i></button>
+          </div>
+          <div class="editor-field-group picker-box">
+            <div class="picker-row">
+              <div><i class="fa-solid fa-calendar-days color-primary"></i> <span class="picker-label">Due Date</span></div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="taskEditorAllDayToggle">
+                <span class="slider"></span>
+              </label>
+              <span class="toggle-text">All Day</span>
+            </div>
+            <div class="picker-controls-row">
+              <button type="button" class="btn-picker" onclick="triggerCalendarDatePicker()"><i class="fa-regular fa-calendar"></i> <span id="dueDateDisplay">Today, Jul 21</span></button>
+              <button type="button" class="btn-picker" onclick="triggerClockTimePicker()"><i class="fa-regular fa-clock"></i> <span id="dueTimeDisplay">09:00 PM</span></button>
+            </div>
+          </div>
+          <div class="editor-field-row card-toggle-row">
+            <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-bell color-orange"></i> <span>Remind me when due</span></div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="taskEditorRemindToggle" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="editor-field-group">
+            <label><i class="fa-solid fa-flag color-muted"></i> Priority Level</label>
+            <div class="priority-flags-row">
+              <label class="priority-flag-radio"><input type="radio" name="taskPriority" value="NONE" checked><span class="flag-box flag-gray"><i class="fa-solid fa-flag"></i> None</span></label>
+              <label class="priority-flag-radio"><input type="radio" name="taskPriority" value="LOW"><span class="flag-box flag-yellow"><i class="fa-solid fa-flag"></i> Low</span></label>
+              <label class="priority-flag-radio"><input type="radio" name="taskPriority" value="MEDIUM"><span class="flag-box flag-orange"><i class="fa-solid fa-flag"></i> Medium</span></label>
+              <label class="priority-flag-radio"><input type="radio" name="taskPriority" value="HIGH"><span class="flag-box flag-red"><i class="fa-solid fa-flag"></i> High</span></label>
+            </div>
+          </div>
+          <div class="editor-field-group">
+            <div class="picker-row">
+              <div><i class="fa-solid fa-highlighter color-purple"></i> <span class="picker-label">Highlight Task Card</span></div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="taskEditorHighlightToggle" onchange="toggleHighlightColorPicker()">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div id="highlightColorPickerRow" class="highlight-swatches-row hidden">
+              <button type="button" class="swatch-btn bg-swatch-yellow active" onclick="selectHighlightColor('#fef08a', this)"></button>
+              <button type="button" class="swatch-btn bg-swatch-blue" onclick="selectHighlightColor('#bfdbfe', this)"></button>
+              <button type="button" class="swatch-btn bg-swatch-pink" onclick="selectHighlightColor('#fbcfe8', this)"></button>
+              <button type="button" class="swatch-btn bg-swatch-green" onclick="selectHighlightColor('#bbf7d0', this)"></button>
+              <button type="button" class="swatch-btn bg-swatch-purple" onclick="selectHighlightColor('#e9d5ff', this)"></button>
+            </div>
+          </div>
+          <div class="editor-field-row">
+            <label class="checkbox-container">
+              <input type="checkbox" id="taskEditorCompletedCheckbox">
+              <span class="checkmark"></span>
+              Mark as Completed
+            </label>
+          </div>
+          <div class="editor-created-timestamp">
+            <i class="fa-solid fa-clock-rotate-left"></i> <span id="taskEditorCreatedTimestamp">Created Jul 21, 2026 at 08:30 PM</span>
+          </div>
+        </form>
+      </div>
+
+      <button class="editor-save-fab" onclick="saveTaskFromEditor()" title="Save Task"><i class="fa-solid fa-check"></i></button>
+    </div>
+  </div>
+
+  <!-- SUB-LIST OVERFLOW MENU SHEET -->
+  <div id="subListOverflowModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'subListOverflowModal')">
+    <div class="modal-card bottom-action-sheet" onclick="event.stopPropagation()">
+      <div class="sheet-handle"></div>
+      <div class="sheet-title">Sub-List Options & Filters</div>
+      <div class="sheet-menu-list">
+        <button class="sheet-menu-item" onclick="subListMenuAction('edit')"><i class="fa-solid fa-pen"></i> Edit Sub List</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('reorder')"><i class="fa-solid fa-arrows-up-down"></i> Reorder Sub Lists</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('move')"><i class="fa-solid fa-folder-arrow-right"></i> Move Sub List</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('sort')"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort Tasks (By Priority / Date)</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('duplicate')"><i class="fa-solid fa-clone"></i> Duplicate Sub List</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('uncheck_all')"><i class="fa-solid fa-square"></i> Uncheck Completed</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('complete_all')"><i class="fa-solid fa-square-check"></i> Complete All</button>
+        <button class="sheet-menu-item" onclick="subListMenuAction('toggle_hide_completed')"><i class="fa-solid fa-eye-slash"></i> Hide Completed Tasks</button>
+        <button class="sheet-menu-item color-coral" onclick="subListMenuAction('remove_completed')"><i class="fa-solid fa-broom"></i> Remove Completed</button>
+        <button class="sheet-menu-item color-coral" onclick="subListMenuAction('delete_sublist')"><i class="fa-solid fa-trash-can"></i> Delete Sub List</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL INTERACTIVE CALENDAR & TIME PICKER DIALOG -->
+  <div id="datePickerModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'datePickerModal')">
+    <div class="modal-card date-picker-dialog" onclick="event.stopPropagation()">
+      <div class="dialog-header-bg">
+        <button type="button" class="dialog-year-btn" onclick="toggleYearGridSelector()" id="pickerDialogYearBtn">2026 <i class="fa-solid fa-caret-down"></i></button>
+        <h2 id="pickerDialogDateTitle">Tue, Jul 21</h2>
+        <span class="header-time-badge" id="pickerDialogTimeTitle"><i class="fa-regular fa-clock"></i> 09:00 PM</span>
+      </div>
+      <div class="preset-dates-bar">
+        <button type="button" class="preset-chip" onclick="selectPresetDate('today')">Today</button>
+        <button type="button" class="preset-chip" onclick="selectPresetDate('tomorrow')">Tomorrow</button>
+        <button type="button" class="preset-chip" onclick="selectPresetDate('next_mon')">Next Mon</button>
+        <button type="button" class="preset-chip" onclick="selectPresetDate('next_wk')">In 1 Wk</button>
+      </div>
+      <div class="calendar-month-header">
+        <button type="button" class="btn-icon" onclick="changeCalendarMonth(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <span id="calendarMonthYearText" class="month-year-title" onclick="toggleYearGridSelector()">July 2026</span>
+        <button type="button" class="btn-icon" onclick="changeCalendarMonth(1)"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <div id="calendarYearGrid" class="year-grid-container hidden"></div>
+      <div id="calendarDaysGrid" class="calendar-days-grid"></div>
+      <div class="picker-time-section">
+        <div class="time-section-title"><i class="fa-regular fa-clock color-primary"></i> <span>Set Task Time</span></div>
+        <div class="time-picker-row">
+          <select id="pickerHourSelect" class="time-select" onchange="updateCalendarTimeSelection()">
+            <option value="1">01</option><option value="2">02</option><option value="3">03</option><option value="4">04</option>
+            <option value="5">05</option><option value="6">06</option><option value="7">07</option><option value="8">08</option>
+            <option value="9" selected>09</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
+          </select>
+          <span class="colon-sep">:</span>
+          <select id="pickerMinuteSelect" class="time-select" onchange="updateCalendarTimeSelection()">
+            <option value="00" selected>00</option><option value="15">15</option><option value="30">30</option><option value="45">45</option>
+          </select>
+          <select id="pickerAmPmSelect" class="time-select" onchange="updateCalendarTimeSelection()">
+            <option value="AM">AM</option><option value="PM" selected>PM</option>
+          </select>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-flat" onclick="closeModal('datePickerModal')">CANCEL</button>
+        <button type="button" class="btn-flat color-primary" onclick="confirmCalendarPicker()">CONFIRM OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Section View Modal -->
+  <div id="sectionModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'sectionModal')">
+    <div class="modal-card glassmorphism-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group" id="modalTitleGroup">
+          <button id="sectionMenuBtn" class="hamburger-btn hidden" onclick="toggleSectionMenuDrawer()" title="Section Navigation Menu" style="width:38px; height:38px; font-size:16px; margin-right:8px;">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <i class="fa-solid fa-star modal-header-icon" id="modalIcon"></i>
+          <h2 id="modalTitle">Section Details</h2>
+        </div>
+        <button class="modal-close-btn" onclick="handleSectionModalClose()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- FINANCE DRAWER NAVIGATION MENU (3-LINE UPWARD LEFT SIDE DRAWER) -->
+  <div id="financeDrawerModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'financeDrawerModal')">
+    <div class="modal-card task-drawer-sheet" onclick="event.stopPropagation()">
+      <div class="task-drawer-header">
+        <div class="drawer-brand">
+          <i class="fa-solid fa-wallet color-green"></i>
+          <h3>Money Tracker Sections</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('financeDrawerModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="task-drawer-body">
+        <div class="drawer-section-label">FINANCE MODULES</div>
+        <div class="drawer-nav-group">
+          <button class="drawer-nav-btn" onclick="switchFinanceTabFromDrawer('home')"><i class="fa-solid fa-house color-green"></i> Home (Dashboard)</button>
+          <button class="drawer-nav-btn" onclick="switchFinanceTabFromDrawer('tx')"><i class="fa-solid fa-receipt color-blue"></i> Txns (Transactions)</button>
+          <button class="drawer-nav-btn" onclick="switchFinanceTabFromDrawer('accounts')"><i class="fa-solid fa-wallet color-purple"></i> Wallets & Accounts</button>
+          <button class="drawer-nav-btn" onclick="switchFinanceTabFromDrawer('budgets')"><i class="fa-solid fa-chart-pie color-orange"></i> Category Budgets</button>
+          <button class="drawer-nav-btn" onclick="switchFinanceTabFromDrawer('reports')"><i class="fa-solid fa-chart-line color-teal"></i> Analytics & Reports</button>
+          <button class="drawer-nav-btn" onclick="switchFinanceTabFromDrawer('settings')"><i class="fa-solid fa-gear color-muted"></i> Finance Settings</button>
+        </div>
+        <div class="drawer-section-label" style="margin-top:16px;">QUICK ACTIONS</div>
+        <div class="drawer-nav-group">
+          <button class="drawer-nav-btn" onclick="closeModal('financeDrawerModal'); openFinanceTxModal('expense');"><i class="fa-solid fa-plus color-red"></i> + Add New Expense</button>
+          <button class="drawer-nav-btn" onclick="closeModal('financeDrawerModal'); openFinanceTxModal('income');"><i class="fa-solid fa-arrow-down-left-and-arrow-up-right-to-inside color-green"></i> + Add New Income</button>
+          <button class="drawer-nav-btn" onclick="closeModal('financeDrawerModal'); openFinanceTransferModal();"><i class="fa-solid fa-arrow-right-arrow-left color-purple"></i> ↔ Transfer Money</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VAULT DRAWER NAVIGATION MENU (3-LINE UPWARD LEFT SIDE DRAWER) -->
+  <div id="vaultDrawerModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'vaultDrawerModal')">
+    <div class="modal-card task-drawer-sheet" onclick="event.stopPropagation()">
+      <div class="task-drawer-header">
+        <div class="drawer-brand">
+          <i class="fa-solid fa-shield-halved color-purple"></i>
+          <h3>DigiLocker Vault Sections</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('vaultDrawerModal')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="task-drawer-body">
+        <div class="drawer-section-label">VAULT MODULES</div>
+        <div class="drawer-nav-group">
+          <button class="drawer-nav-btn" onclick="switchVaultTabFromDrawer('home')"><i class="fa-solid fa-house color-purple"></i> Home (Dashboard)</button>
+          <button class="drawer-nav-btn" onclick="switchVaultTabFromDrawer('docs')"><i class="fa-solid fa-file-shield color-blue"></i> Stored Documents</button>
+          <button class="drawer-nav-btn" onclick="switchVaultTabFromDrawer('passwords')"><i class="fa-solid fa-key color-teal"></i> Passwords Vault</button>
+          <button class="drawer-nav-btn" onclick="switchVaultTabFromDrawer('cards')"><i class="fa-solid fa-credit-card color-orange"></i> Bank Cards & Identity</button>
+          <button class="drawer-nav-btn" onclick="switchVaultTabFromDrawer('notes')"><i class="fa-solid fa-note-sticky color-green"></i> Encrypted Notes</button>
+          <button class="drawer-nav-btn" onclick="switchVaultTabFromDrawer('settings')"><i class="fa-solid fa-gear color-muted"></i> Security Settings</button>
+        </div>
+        <div class="drawer-section-label" style="margin-top:16px;">QUICK ACTIONS</div>
+        <div class="drawer-nav-group">
+          <button class="drawer-nav-btn" onclick="closeModal('vaultDrawerModal'); openVaultDocAddModal();"><i class="fa-solid fa-plus color-blue"></i> + Upload Document</button>
+          <button class="drawer-nav-btn" onclick="closeModal('vaultDrawerModal'); openVaultPassAddModal();"><i class="fa-solid fa-plus color-teal"></i> + New Password</button>
+          <button class="drawer-nav-btn" onclick="closeModal('vaultDrawerModal'); openVaultCardAddModal();"><i class="fa-solid fa-plus color-orange"></i> + Add Card / ID</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAL INFO VAULT PIN SECURITY LOCK MODAL -->
+  <div id="vaultPinModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'vaultPinModal')">
+    <div class="modal-card pin-keypad-window" onclick="event.stopPropagation()">
+      <div class="pin-header-brand">
+        <div class="pin-shield-badge"><i class="fa-solid fa-shield-halved"></i></div>
+        <h2 id="vaultPinTitle">Enter 4-Digit Security PIN</h2>
+        <p id="vaultPinSubtitle">AES-256 DigiLocker Vault Protection</p>
+      </div>
+
+      <!-- PIN Dot Entry Indicators -->
+      <div class="pin-dots-row" id="pinDotsRow">
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+        <div class="pin-dot"></div>
+      </div>
+      <div id="pinErrorMsg" class="pin-error-text hidden">Incorrect PIN. Try again.</div>
+
+      <!-- Custom Numeric Keypad -->
+      <div class="numeric-keypad-grid">
+        <button class="keypad-btn" onclick="enterPinDigit('1')">1</button>
+        <button class="keypad-btn" onclick="enterPinDigit('2')">2</button>
+        <button class="keypad-btn" onclick="enterPinDigit('3')">3</button>
+        <button class="keypad-btn" onclick="enterPinDigit('4')">4</button>
+        <button class="keypad-btn" onclick="enterPinDigit('5')">5</button>
+        <button class="keypad-btn" onclick="enterPinDigit('6')">6</button>
+        <button class="keypad-btn" onclick="enterPinDigit('7')">7</button>
+        <button class="keypad-btn" onclick="enterPinDigit('8')">8</button>
+        <button class="keypad-btn" onclick="enterPinDigit('9')">9</button>
+        <button class="keypad-btn btn-biometric" onclick="triggerBiometricUnlock()"><i class="fa-solid fa-fingerprint"></i></button>
+        <button class="keypad-btn" onclick="enterPinDigit('0')">0</button>
+        <button class="keypad-btn btn-backspace" onclick="deletePinDigit()"><i class="fa-solid fa-backspace"></i></button>
+      </div>
+
+      <div class="pin-footer-actions">
+        <button class="btn-text-muted" onclick="triggerForgotPinFlow()">Forgot PIN?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT DOCUMENT MODAL -->
+  <div id="vaultDocAddModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'vaultDocAddModal')">
+    <div class="modal-card glassmorphism-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-file-shield modal-header-icon color-blue"></i>
+          <h2>Add New Document</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('vaultDocAddModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); saveVaultDocument();">
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Document Title</label>
+            <input type="text" id="docTitleInput" placeholder="e.g. Passport, Aadhaar, Insurance" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Category</label>
+            <select id="docCategorySelect" class="editor-select" style="width:100%;">
+              <option value="id_proof">ID Proof / Passport</option>
+              <option value="certificates">Academic & Work Certificates</option>
+              <option value="insurance">Insurance Policy</option>
+              <option value="medical">Medical Record</option>
+              <option value="property">Property Deed / Tax</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Document Number / ID</label>
+            <input type="text" id="docNumberInput" placeholder="e.g. Z9842109" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Upload File / Camera Scan</label>
+            <input type="file" id="docFileInput" accept="image/*,application/pdf" style="display:none;" onchange="handleDocFileSelection(event)">
+            <div class="attachment-actions-row">
+              <button type="button" class="btn-attach" onclick="triggerDocCameraScan()"><i class="fa-solid fa-camera"></i> Camera Scan</button>
+              <button type="button" class="btn-attach" onclick="triggerDocGalleryUpload()"><i class="fa-solid fa-file-pdf"></i> PDF / Gallery</button>
+            </div>
+            <div id="docFilePreview" style="margin-top:10px; padding:10px; border-radius:12px; background:var(--bg-body); border:1px solid var(--border-color); display:none;"></div>
+          </div>
+          <div class="modal-footer-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+            <button type="button" class="btn btn-outline" onclick="closeModal('vaultDocAddModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Document</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT PASSWORD MODAL WITH GENERATOR -->
+  <div id="vaultPassAddModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'vaultPassAddModal')">
+    <div class="modal-card glassmorphism-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-key modal-header-icon color-purple"></i>
+          <h2>Add Password Entry</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('vaultPassAddModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); saveVaultPassword();">
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>App / Website Name</label>
+            <input type="text" id="passServiceInput" placeholder="e.g. Google, GitHub, Chase Bank" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Username / Email</label>
+            <input type="text" id="passUserInput" placeholder="e.g. john.doe@email.com" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:14px; position:relative;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <label>Password</label>
+              <button type="button" class="btn-text-save" style="font-size:11px; padding:2px 8px;" onclick="generateStrongPassword()">Generate</button>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input type="password" id="passValInput" placeholder="Password" style="flex:1; padding:12px; border-radius:12px; border:1px solid var(--border-color);" onkeyup="updatePasswordStrengthMeter(this.value)" required>
+              <button type="button" class="btn-icon" onclick="togglePassVisibility()"><i class="fa-solid fa-eye" id="passEyeIcon"></i></button>
+            </div>
+            <div id="passStrengthLabel" style="font-size:11px; font-weight:700; margin-top:4px; color:var(--text-muted);">Strength: Medium</div>
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Notes / Recovery Hint</label>
+            <textarea id="passNotesInput" class="editor-textarea" style="min-height:60px;" placeholder="Optional hints..."></textarea>
+          </div>
+          <div class="modal-footer-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn btn-outline" onclick="closeModal('vaultPassAddModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT CARD MODAL -->
+  <div id="vaultCardAddModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'vaultCardAddModal')">
+    <div class="modal-card glassmorphism-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-credit-card modal-header-icon color-teal"></i>
+          <h2>Add Identity / Bank Card</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('vaultCardAddModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); saveVaultCard();">
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Card Title</label>
+            <input type="text" id="cardTitleInput" placeholder="e.g. Visa Debit Card, Driver License" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Cardholder Name</label>
+            <input type="text" id="cardHolderInput" placeholder="Name on card" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:14px;">
+            <label>Card / ID Number</label>
+            <input type="text" id="cardNumberInput" placeholder="4532 8921 0942 4821" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+            <div>
+              <label>Expiry Date</label>
+              <input type="text" id="cardExpiryInput" placeholder="12/28" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+            </div>
+            <div>
+              <label>CVV / Pin</label>
+              <input type="password" id="cardCvvInput" placeholder="•••" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+            </div>
+          </div>
+          <div class="modal-footer-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:16px;">
+            <button type="button" class="btn btn-outline" onclick="closeModal('vaultCardAddModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Card</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- VAULT ITEM PREVIEW & DETAILS MODAL -->
+  <div id="vaultPreviewModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'vaultPreviewModal')">
+    <div class="modal-card glassmorphism-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-file-shield modal-header-icon color-purple" id="vaultPreviewIcon"></i>
+          <h2 id="vaultPreviewTitle">Vault Item Details</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('vaultPreviewModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body" id="vaultPreviewBody"></div>
+    </div>
+  </div>
+
+
+
+  <!-- ADD / EDIT FINANCE TRANSACTION MODAL (MATERIAL DESIGN 3) -->
+  <div id="financeTxModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'financeTxModal')">
+    <div class="modal-card finance-tx-sheet" onclick="event.stopPropagation()">
+      <div class="tx-header-bar" id="txHeaderBar">
+        <button class="modal-close-btn light-btn" onclick="closeModal('financeTxModal')"><i class="fa-solid fa-xmark"></i></button>
+        <span class="tx-header-title" id="financeTxHeaderTitle">Add Transaction</span>
+        <button class="btn-text-save" onclick="saveFinanceTransaction()">Save</button>
+      </div>
+
+      <div class="tx-scroll-body">
+        <form onsubmit="event.preventDefault(); saveFinanceTransaction();">
+          <!-- Type Segment Selector: Expense / Income / Transfer -->
+          <div class="tx-type-selector-row">
+            <button type="button" class="tx-type-btn active-expense" id="btnTxExpense" onclick="setFinanceTxType('expense')">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Expense
+            </button>
+            <button type="button" class="tx-type-btn" id="btnTxIncome" onclick="setFinanceTxType('income')">
+              <i class="fa-solid fa-arrow-down-left-and-arrow-up-right-to-inside"></i> Income
+            </button>
+            <button type="button" class="tx-type-btn" id="btnTxTransfer" onclick="setFinanceTxType('transfer')">
+              <i class="fa-solid fa-arrow-right-arrow-left"></i> Transfer
+            </button>
+          </div>
+
+          <!-- Large Amount Input Field -->
+          <div class="tx-amount-container">
+            <span class="currency-symbol-large" id="txCurrencySymbol">$</span>
+            <input type="number" step="0.01" min="0.01" id="txAmountInput" class="tx-amount-input" placeholder="0.00" required>
+          </div>
+
+          <!-- Title Field -->
+          <div class="editor-field-group">
+            <label><i class="fa-solid fa-font color-muted"></i> Transaction Title</label>
+            <input type="text" id="txTitleInput" class="subtask-title-val" style="padding:12px; border-radius:12px; border:1px solid var(--border-color); width:100%;" placeholder="e.g. Supermarket Grocery, Client Payment" required>
+          </div>
+
+          <!-- Category Selector -->
+          <div class="editor-field-group" id="txCategoryGroup">
+            <label><i class="fa-solid fa-layer-group color-muted"></i> Category</label>
+            <div id="txCategoryGrid" class="tx-category-grid"></div>
+          </div>
+
+          <!-- Account / Wallet Selector -->
+          <div class="editor-field-row">
+            <i class="fa-solid fa-wallet color-muted"></i>
+            <label id="txAccountLabel">From Account:</label>
+            <select id="txAccountSelect" class="editor-select" style="flex:1;"></select>
+          </div>
+
+          <!-- Target Account Selector (for Transfer type) -->
+          <div class="editor-field-row hidden" id="txTargetAccountRow">
+            <i class="fa-solid fa-building-columns color-muted"></i>
+            <label>To Account:</label>
+            <select id="txTargetAccountSelect" class="editor-select" style="flex:1;"></select>
+          </div>
+
+          <!-- Date & Time Row -->
+          <div class="editor-field-group picker-box">
+            <div class="picker-row">
+              <div><i class="fa-solid fa-calendar-days color-primary"></i> <span class="picker-label">Date & Time</span></div>
+            </div>
+            <div class="picker-controls-row">
+              <input type="date" id="txDateInput" class="editor-select" style="flex:1;" required>
+              <input type="time" id="txTimeInput" class="editor-select" style="flex:1;" required>
+            </div>
+          </div>
+
+          <!-- Notes Field -->
+          <div class="editor-field-group">
+            <label><i class="fa-solid fa-align-left color-muted"></i> Notes</label>
+            <textarea id="txNotesInput" class="editor-textarea" placeholder="Add receipt details, invoice notes..."></textarea>
+          </div>
+
+          <!-- Receipt Photo Attachment -->
+          <div class="editor-field-group">
+            <label><i class="fa-solid fa-paperclip color-muted"></i> Receipt Photo</label>
+            <div class="attachment-actions-row">
+              <button type="button" class="btn-attach" onclick="triggerReceiptPicker()"><i class="fa-solid fa-camera"></i> Snap Receipt</button>
+            </div>
+            <div id="txReceiptPreviewContainer" class="attachments-preview-row"></div>
+          </div>
+
+          <!-- Recurring Toggle -->
+          <div class="editor-field-row card-toggle-row">
+            <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-rotate color-purple"></i> <span>Repeat / Recurring Bill</span></div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="txRecurringToggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+        </form>
+      </div>
+
+      <button class="editor-save-fab" onclick="saveFinanceTransaction()" title="Save Transaction"><i class="fa-solid fa-check"></i></button>
+    </div>
+  </div>
+
+  <!-- ADD ACCOUNT / WALLET MODAL -->
+  <div id="financeAccountModal" class="modal-overlay hidden" onclick="closeModalOnBackdrop(event, 'financeAccountModal')">
+    <div class="modal-card glassmorphism-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <i class="fa-solid fa-wallet modal-header-icon color-green"></i>
+          <h2>Add New Account / Wallet</h2>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal('financeAccountModal')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); createNewAccount();">
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Account Name</label>
+            <input type="text" id="accNameInput" placeholder="e.g. Chase Checking, Cash Wallet, Savings" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Account Type</label>
+            <select id="accTypeSelect" class="editor-select" style="width:100%;">
+              <option value="bank">Bank Account</option>
+              <option value="cash">Cash Wallet</option>
+              <option value="card">Credit Card</option>
+              <option value="savings">Savings Vault</option>
+              <option value="upi">Digital Wallet / UPI</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;">
+            <label>Initial Balance</label>
+            <input type="number" step="0.01" id="accBalanceInput" placeholder="0.00" style="width:100%; padding:12px; border-radius:12px; border:1px solid var(--border-color);" required>
+          </div>
+          <div class="modal-footer-actions" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+            <button type="button" class="btn btn-outline" onclick="closeModal('financeAccountModal')">Cancel</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Create Account</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="medicare.js?v=45.0.0"></script>
+  <script src="app.js?v=45.0.0"></script>
+</body>
+</html>

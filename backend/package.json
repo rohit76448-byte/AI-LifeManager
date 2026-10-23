@@ -1,0 +1,30 @@
+{
+  "name": "ai-lifemanager-backend",
+  "version": "1.0.0",
+  "description": "Enterprise REST API backend for Mine AI LifeManager Suite (Tasks, Finance, Vault, Chatbot RAG, and MediCare AI)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "migrate:pg": "node scripts/migratePostgres.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.23.1"
+  },
+  "keywords": [
+    "ai",
+    "lifemanager",
+    "tasks",
+    "finance",
+    "medicare",
+    "vault",
+    "rag"
+  ],
+  "author": "Antigravity Team",
+  "license": "MIT"
+}
